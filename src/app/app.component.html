@@ -1,28 +1,108 @@
-<div class="header">
-  <header>
-    <div class="header-container">
-      <div>
-        <img src="" alt="brain">
-      </div>
-      <div class="">
-        <h1>CephaloAI</h1>
-        <p>Analise de encefalogramas com a ajuda de IA</p>
+<div class="min-h-screen bg-background">
+  <header class="border-b bg-card">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center gap-3">
+        <div>
+          <img src="" alt="brain">
+        </div>
+        <div class="">
+          <h1 class="text-2xl font-medium">CephaloAI</h1>
+          <p class="text-sm text-muted-foreground">
+            Analise de encefalogramas com a ajuda de IA
+          </p>
+        </div>
       </div>
     </div>
   </header>
+  <main class="container mx-auto px-6 py-8">
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+      <!-- Left Column - Upload and Controls -->
+      <div class="space-y-6">
+        <image-upload
+          (imageUpload)="handleImageUpload($event)"
+          [uploadedImage]="originalImage"
+        ></image-upload>
+
+        <card class="p-6">
+          <div class="space-y-4">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 text-primary">[Zap Icon]</span>
+              <h3>Analysis Control</h3>
+            </div>
+
+            <button
+              (click)="handleGenerateAnalysis()"
+              [disabled]="!originalImage || isAnalyzing"
+              class="w-full"
+              [ngClass]="'btn-lg'"
+            >
+              <ng-container *ngIf="isAnalyzing; else notAnalyzing">
+                <span class="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>
+                Analyzing...
+              </ng-container>
+              <ng-template #notAnalyzing>
+                <span class="w-4 h-4 mr-2">[Brain Icon]</span>
+                Generate Analysis
+              </ng-template>
+            </button>
+
+            <div class="text-xs text-muted-foreground space-y-1">
+              <p>• Upload a lateral cephalometric X-ray</p>
+              <p>• Click "Generate Analysis" to process</p>
+              <p>• View results and measurements</p>
+            </div>
+          </div>
+        </card>
+
+        <card class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-5 h-5 text-primary">[FileText Icon]</span>
+            <h3>Analysis Status</h3>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center justify-between">
+              <span>Image Upload</span>
+              <span [ngClass]="originalImage ? 'text-green-600' : 'text-gray-400'">
+                {{ originalImage ? '✓ Complete' : 'Pending' }}
+              </span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Point Detection</span>
+              <span [ngClass]="showResults ? 'text-green-600' : 'text-gray-400'">
+                {{ isAnalyzing ? 'Processing...' : showResults ? '✓ Complete' : 'Pending' }}
+              </span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Measurement Analysis</span>
+              <span [ngClass]="showResults ? 'text-green-600' : 'text-gray-400'">
+                {{ showResults ? '✓ Complete' : 'Pending' }}
+              </span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>AI Diagnosis</span>
+              <span [ngClass]="showResults ? 'text-green-600' : 'text-gray-400'">
+                {{ showResults ? '✓ Complete' : 'Pending' }}
+              </span>
+            </div>
+          </div>
+        </card>
+      </div>
+
+      <!-- Right Column - Images and Results -->
+      <div class="xl:col-span-2 space-y-8">
+        <image-display
+          [originalImage]="originalImage"
+          [analyzedImage]="analyzedImage"
+        ></image-display>
+
+        <diagnostic-panel
+          [isLoading]="isAnalyzing"
+          [results]="showResults ? null : null"
+          [diagnosis]="showResults ? null : null"
+        ></diagnostic-panel>
+      </div>
+    </div>
+  </main>
 </div>
 
-<main class="main-container">
-  <div>
-    <image-upload></image-upload>
-  </div>
-  <div>
-    <div>
-      <image-analysis></image-analysis>
-    </div>
-    <div>
-      <diagnostic-panel></diagnostic-panel>
-    </div>
-  </div>
-</main>
 <router-outlet></router-outlet>

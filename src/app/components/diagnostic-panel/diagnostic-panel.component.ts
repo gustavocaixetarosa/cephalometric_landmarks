@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'diagnostic-panel',
@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './diagnostic-panel.component.scss'
 })
 export class DiagnosticPanelComponent {
-
+  @Input() isLoading: boolean = false;
+  @Input() results: any;
+  @Input() diagnosis: any;
 }
