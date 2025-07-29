@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-diagnostic-panel',
+  selector: 'diagnostic-panel',
   standalone: true,
   imports: [],
   templateUrl: './diagnostic-panel.component.html',
