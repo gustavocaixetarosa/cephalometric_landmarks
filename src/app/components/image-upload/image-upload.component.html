@@ -1,1 +1,47 @@
-<p>image-upload works!</p>
+<card className="p-6 border-2 border-dashed border-border hover:border-primary/50 transition-colors">
+  <div class="text-center space-y-4">
+    <div class="flex justify-center">
+      <div class="p-4 rounded-full bg-muted">
+        <ng-container *ngIf="uploadedImage; else uploadIcon">
+          <!-- Substitua por SVG ou componente de ícone real -->
+          <span class="w-8 h-8 text-muted-foreground">[Image Icon]</span>
+        </ng-container>
+        <ng-template #uploadIcon>
+          <span class="w-8 h-8 text-muted-foreground">[Upload Icon]</span>
+        </ng-template>
+      </div>
+    </div>
+
+    <div>
+      <h3>Upload Cephalometric X-ray</h3>
+      <p class="text-muted-foreground mt-1">
+        Select a high-quality lateral cephalometric radiograph
+      </p>
+    </div>
+
+    <div *ngIf="uploadedImage" class="text-sm text-primary">
+      ✓ Image uploaded successfully
+    </div>
+
+    <button
+      type="button"
+      (click)="handleButtonClick()"
+      class="w-full"
+      [ngClass]="uploadedImage ? 'btn-secondary' : 'btn-default'"
+    >
+      {{ uploadedImage ? 'Change Image' : 'Select Image' }}
+    </button>
+
+    <input
+      #fileInput
+      type="file"
+      accept="image/*"
+      (change)="handleFileSelect($event)"
+      class="hidden"
+    />
+
+    <p class="text-xs text-muted-foreground">
+      Supported formats: JPEG, PNG, DICOM
+    </p>
+  </div>
+</card>

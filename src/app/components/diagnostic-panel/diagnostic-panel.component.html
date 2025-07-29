@@ -1,1 +1,67 @@
-<p>diagnostic-panel works!</p>
+<card class="p-6">
+  <h3 class="mb-4">AI Analysis Results</h3>
+
+  <ng-container *ngIf="isLoading; else loaded">
+    <div class="space-y-4">
+      <div *ngFor="let i of [0,1,2,3,4,5]" class="animate-pulse">
+        <div class="h-4 bg-muted rounded w-3/4 mb-2"></div>
+        <div class="h-3 bg-muted rounded w-1/2"></div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loaded>
+    <div class="h-[400px] pr-4 overflow-y-auto space-y-6">
+      <!-- Measurements -->
+      <div>
+        <h4 class="mb-3">Cephalometric Measurements</h4>
+        <div class="space-y-3">
+          <div *ngFor="let result of displayResults" class="border rounded-lg p-3">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-sm font-medium">{{ result.measurement }}</span>
+              <span
+                class="px-2 py-0.5 rounded text-xs border"
+                [ngClass]="getStatusColor(result.status)"
+              >
+                {{ result.status }}
+              </span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
+              <div>
+                <span class="font-medium">Measured: </span>
+                <span>{{ result.value }}</span>
+              </div>
+              <div>
+                <span class="font-medium">Normal: </span>
+                <span>{{ result.normalRange }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-4 border-border" />
+
+      <!-- AI Diagnosis -->
+      <div>
+        <h4 class="mb-3">AI Diagnostic Summary</h4>
+        <card class="p-4 bg-muted/50">
+          <p class="text-sm leading-relaxed">
+            {{ displayDiagnosis }}
+          </p>
+        </card>
+      </div>
+
+      <!-- Recommendations -->
+      <div>
+        <h4 class="mb-3">Clinical Recommendations</h4>
+        <ul class="text-sm space-y-2 text-muted-foreground">
+          <li>• Continue regular orthodontic monitoring</li>
+          <li>• Consider growth assessment at 6-month intervals</li>
+          <li>• Monitor for any changes in facial asymmetry</li>
+          <li>• Evaluate occlusal relationships clinically</li>
+        </ul>
+      </div>
+    </div>
+  </ng-template>
+</card>

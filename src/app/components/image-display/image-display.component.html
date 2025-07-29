@@ -1,1 +1,57 @@
-<p>image-display works!</p>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[500px]">
+  <!-- Original Image -->
+  <card className="p-4 bg-black">
+    <div class="mb-3">
+      <h3 class="text-white">Original Image</h3>
+    </div>
+    <div class="h-full bg-black rounded border border-gray-700 flex items-center justify-center relative">
+      <ng-container *ngIf="originalImage; else noOriginal">
+        <img
+          [src]="originalImage"
+          alt="Original cephalometric X-ray"
+          class="max-h-full max-w-full object-contain"
+        />
+      </ng-container>
+      <ng-template #noOriginal>
+        <div class="text-center text-gray-400">
+          <div class="w-16 h-16 mx-auto mb-3 bg-gray-800 rounded-lg flex items-center justify-center">
+            <!-- SVG de imagem -->
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <p>Upload an image to begin analysis</p>
+        </div>
+      </ng-template>
+    </div>
+  </card>
+
+  <!-- Analyzed Image with Points -->
+  <card className="p-4 bg-black">
+    <div class="mb-3">
+      <h3 class="text-white">Analysis Result</h3>
+    </div>
+    <div class="h-full bg-black rounded border border-gray-700 flex items-center justify-center relative">
+      <ng-container *ngIf="analyzedImage; else noAnalyzed">
+        <img
+          [src]="analyzedImage"
+          alt="Analyzed cephalometric X-ray with anatomical points"
+          class="max-h-full max-w-full object-contain"
+        />
+      </ng-container>
+      <ng-template #noAnalyzed>
+        <div class="text-center text-gray-400">
+          <div class="w-16 h-16 mx-auto mb-3 bg-gray-800 rounded-lg flex items-center justify-center">
+            <!-- SVG de análise -->
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <p>Analysis will appear here</p>
+        </div>
+      </ng-template>
+    </div>
+  </card>
+</div>
