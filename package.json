@@ -1,6 +1,8 @@
 {
   "name": "cephalometric-landmarks",
   "version": "0.0.0",
+  "description": "App that helps with detection and analysis of cephalometric landmarks",
+  "author": "Gustavo Caixeta Rosa",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
