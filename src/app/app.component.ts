@@ -24,15 +24,18 @@ export class AppComponent {
 
   title = 'cephalometric_landmarks';
   isAnalyzing: boolean = false;
+  isUploadingImage: boolean = false;
   originalImage: any;
   showResults: any;
-analyzedImage: any;
+  analyzedImage: any;
 
   handleGenerateAnalysis() {
     throw new Error('Method not implemented.');
   }
 
   handleImageUpload($event: Event) {
-    throw new Error('Method not implemented.');
+    if(event != null){
+      this.isUploadingImage = true;
+    }
   }
 }
